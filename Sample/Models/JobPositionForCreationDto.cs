@@ -6,10 +6,8 @@ using Sample.Entities;
 
 namespace Sample.Models
 {
-    public class JobPositionDto
+    public class JobPositionForCreationDto
     {
-        
-        public Guid Id { get; set; }
         public Guid CompanyId { get; set; }
         public Degree Degree { get; set; }
         public string Title { get; set; }

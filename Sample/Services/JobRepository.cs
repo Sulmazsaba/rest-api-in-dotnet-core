@@ -60,6 +60,31 @@ namespace Sample.Services
             context.Companies.Add(company);
         }
 
+        public bool CompanyExists(Guid companyId)
+        {
+            if(companyId==Guid.Empty)
+                throw new ArgumentNullException(nameof(companyId));
+            return context.Companies.Any(i => i.Id == companyId);
+        }
+
+        public IEnumerable<JobPosition> GetJobPositions(Guid companyId)
+        {
+            if(companyId==Guid.Empty)
+                throw new ArgumentNullException(nameof(companyId));
+
+            return context.JobPositions.Where(i => i.CompanyId == companyId).ToList();
+        }
+
+        public JobPosition GetJobPosition(Guid companyId, Guid jobPositionId)
+        {
+            if(companyId == Guid.Empty)
+                throw new ArgumentNullException(nameof(companyId));
+            if(jobPositionId==Guid.Empty)
+                throw new ArgumentNullException(nameof(jobPositionId));
+
+            return context.JobPositions.FirstOrDefault(i => i.CompanyId == companyId && i.Id == jobPositionId);
+        }
+
         public bool Save()
         {
             return context.SaveChanges()>=0;

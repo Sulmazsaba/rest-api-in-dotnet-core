@@ -12,7 +12,8 @@ namespace Sample.Profiles
     {
         public JobPositionsProfile()
         {
-            CreateMap<JobPositionDto, JobPosition>();
+            CreateMap<JobPosition, JobPositionDto>();
+            CreateMap<JobPositionForCreationDto, JobPosition>();
         }
     }
 }
