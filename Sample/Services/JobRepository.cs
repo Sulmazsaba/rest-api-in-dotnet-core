@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Sample.DbContexts;
 using Sample.Entities;
 using Sample.Models;
+using Sample.Profiles;
 using Sample.ResourceParameters;
 
 namespace Sample.Services
@@ -83,6 +84,17 @@ namespace Sample.Services
                 throw new ArgumentNullException(nameof(jobPositionId));
 
             return context.JobPositions.FirstOrDefault(i => i.CompanyId == companyId && i.Id == jobPositionId);
+        }
+
+        public void AddJobPosition(Guid companyId,JobPosition jobPosition)
+        {
+            if(jobPosition==null)
+                throw new ArgumentNullException(nameof(JobPosition));
+            
+            if(companyId==Guid.Empty)
+                throw new ArgumentNullException(nameof(companyId));
+            jobPosition.CompanyId = companyId;
+            context.JobPositions.Add(jobPosition);
         }
 
         public bool Save()

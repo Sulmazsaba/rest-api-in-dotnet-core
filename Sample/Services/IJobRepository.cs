@@ -17,6 +17,7 @@ namespace Sample.Services
        bool CompanyExists(Guid companyId);
        IEnumerable<JobPosition> GetJobPositions(Guid companyId);
        JobPosition GetJobPosition(Guid companyId,Guid jobPositionId);
+       void AddJobPosition(Guid companyId,JobPosition jobPosition);
        bool Save();
 
    }

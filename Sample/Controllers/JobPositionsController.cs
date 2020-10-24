@@ -45,10 +45,21 @@ namespace Sample.Controllers
             return Ok(mapper.Map<JobPositionDto>(jobPositionFromRepo));
         }
 
-        //[HttpPost]
-        //public ActionResult<JobPositionDto> CreateJobPositionForCompany(JobPositionForCreationDto dto)
-        //{
+        [HttpPost]
+        public ActionResult<JobPositionDto> CreateJobPositionForCompany(Guid companyId,JobPositionForCreationDto dto)
+        {
+            if (!jobRepository.CompanyExists(companyId))
+                return NotFound();
 
-        //}
+            var entity = mapper.Map<JobPosition>(dto);
+            jobRepository.AddJobPosition(companyId,entity);
+            jobRepository.Save();
+
+            var jobPositionDto = mapper.Map<JobPositionDto>(entity);
+
+            return CreatedAtRoute("GetJobPositionForCompany",
+                new {companyId = jobPositionDto.CompanyId, jobPositionId = jobPositionDto.Id},
+                jobPositionDto);
+        }
     }
 }
