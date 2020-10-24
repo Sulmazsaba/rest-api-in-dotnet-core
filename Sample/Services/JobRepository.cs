@@ -21,5 +21,12 @@ namespace Sample.Services
         {
             return context.Companies.ToList<Company>();
         }
+
+        public Company GetCompany(Guid companyId)
+        {
+            if(companyId==Guid.Empty)
+                throw new ArgumentNullException(nameof(companyId));
+            return context.Companies.FirstOrDefault(i=>i.Id==companyId);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Sample.Services
    public interface IJobRepository
    {
        IEnumerable<Company> GetCompanies();
+       Company GetCompany(Guid companyId);
    }
 }

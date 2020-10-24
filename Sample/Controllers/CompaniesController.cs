@@ -30,5 +30,16 @@ namespace Sample.Controllers
             return Ok(mapper.Map<IEnumerable<CompanyDto>>(companiesFromRepo));
 
         }
+
+        [HttpGet("{companyId}")]
+        public ActionResult<CompanyDto> GetCompany(Guid companyId)
+        {
+            var companyFromRepo = jobRepository.GetCompany(companyId);
+            if (companyFromRepo == null)
+                return NotFound();
+
+            return mapper.Map<CompanyDto>(companyFromRepo);
+        }
+
     }
 }
