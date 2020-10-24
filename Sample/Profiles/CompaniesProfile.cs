@@ -17,6 +17,8 @@ namespace Sample.Profiles
                 .ForMember(dest=>dest.CompanyAge,
                     opt=>
                         opt.MapFrom(src=>src.DateTime.GetCurrentAge()));
+
+            CreateMap<CompanyForCreationDto,Company>();
         }
     }
 }
