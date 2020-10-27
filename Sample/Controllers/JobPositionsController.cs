@@ -61,5 +61,24 @@ namespace Sample.Controllers
                 new {companyId = jobPositionDto.CompanyId, jobPositionId = jobPositionDto.Id},
                 jobPositionDto);
         }
+
+        [HttpPut("{jobPositionId}")]
+        public ActionResult<JobPositionDto> UpdateJobPositionForCompany(Guid companyId, Guid jobPositionId
+            ,JobPositionForUpdateDto jobPositionForUpdateDto)
+        {
+            if (!jobRepository.CompanyExists(companyId))
+                return NotFound();
+
+            var jobPositionFromRepo= jobRepository.GetJobPosition(companyId, jobPositionId);
+            if (jobPositionFromRepo == null)
+                return NotFound();
+
+            mapper.Map(jobPositionForUpdateDto, jobPositionFromRepo);
+             jobRepository.UpdateJobPosition(jobPositionFromRepo);
+             jobRepository.Save();
+
+             return NoContent();
+
+        }
     }
 }

@@ -97,6 +97,11 @@ namespace Sample.Services
             context.JobPositions.Add(jobPosition);
         }
 
+        public void UpdateJobPosition(JobPosition jobPosition)
+        {
+            
+        }
+
         public bool Save()
         {
             return context.SaveChanges()>=0;
