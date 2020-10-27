@@ -63,7 +63,7 @@ namespace Sample.Controllers
         }
 
         [HttpPut("{jobPositionId}")]
-        public ActionResult<JobPositionDto> UpdateJobPositionForCompany(Guid companyId, Guid jobPositionId
+        public IActionResult UpdateJobPositionForCompany(Guid companyId, Guid jobPositionId
             ,JobPositionForUpdateDto jobPositionForUpdateDto)
         {
             if (!jobRepository.CompanyExists(companyId))
@@ -71,14 +71,42 @@ namespace Sample.Controllers
 
             var jobPositionFromRepo= jobRepository.GetJobPosition(companyId, jobPositionId);
             if (jobPositionFromRepo == null)
-                return NotFound();
+            {
+                var jobPositionToAdd = mapper.Map<JobPosition>(jobPositionForUpdateDto);
+                jobRepository.AddJobPosition(companyId,jobPositionToAdd);
+                jobRepository.Save();
+                var returnDto = mapper.Map<JobPositionDto>(jobPositionToAdd);
+                return CreatedAtRoute("GetJobPositionForCompany",
+                    routeValues: new
+                    {
+                        companyId = returnDto.CompanyId,
+                        jobPositionId = returnDto.Id
+                    }, returnDto);
 
-            mapper.Map(jobPositionForUpdateDto, jobPositionFromRepo);
+            }
+
+              mapper.Map(jobPositionForUpdateDto, jobPositionFromRepo);
              jobRepository.UpdateJobPosition(jobPositionFromRepo);
              jobRepository.Save();
 
              return NoContent();
 
+        }
+
+        [HttpDelete("{jobPositionId}")]
+        public ActionResult Delete(Guid companyId, Guid jobPositionId)
+        {
+            if (!jobRepository.CompanyExists(companyId))
+                return NotFound();
+
+            var jobPositionFromRepo = jobRepository.GetJobPosition(companyId, jobPositionId);
+            if (jobPositionFromRepo == null)
+                return NotFound();
+
+            jobRepository.DeleteJobPosition(jobPositionFromRepo);
+            jobRepository.Save();
+
+            return NoContent();
         }
     }
 }

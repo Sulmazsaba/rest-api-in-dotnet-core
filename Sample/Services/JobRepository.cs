@@ -102,6 +102,11 @@ namespace Sample.Services
             
         }
 
+        public void DeleteJobPosition(JobPosition jobPosition)
+        {
+            context.JobPositions.Remove(jobPosition);
+        }
+
         public bool Save()
         {
             return context.SaveChanges()>=0;

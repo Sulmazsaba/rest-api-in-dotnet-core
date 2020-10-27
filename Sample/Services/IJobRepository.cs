@@ -19,6 +19,7 @@ namespace Sample.Services
        JobPosition GetJobPosition(Guid companyId,Guid jobPositionId);
        void AddJobPosition(Guid companyId,JobPosition jobPosition);
        void UpdateJobPosition(JobPosition jobPosition);
+       void DeleteJobPosition(JobPosition jobPosition);
        bool Save();
 
    }
