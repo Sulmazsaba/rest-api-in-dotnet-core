@@ -15,6 +15,7 @@ namespace Sample.Profiles
             CreateMap<JobPosition, JobPositionDto>();
             CreateMap<JobPositionForCreationDto, JobPosition>();
             CreateMap<JobPositionForUpdateDto, JobPosition>();
+            CreateMap<JobPosition, JobPositionForUpdateDto>();
         }
     }
 }

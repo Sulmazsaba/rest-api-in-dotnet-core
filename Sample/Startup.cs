@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using Sample.DbContexts;
 using Sample.Services;
 
@@ -29,7 +30,11 @@ namespace Sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(setup =>
+            {
+                setup.SerializerSettings.ContractResolver =new CamelCasePropertyNamesContractResolver();
+            });
             services.AddDbContext<SampleContext>(options =>
             {
                 options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Sample;Trusted_Connection=True;");

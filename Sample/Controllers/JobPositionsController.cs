@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Sample.Entities;
 using Sample.Models;
@@ -104,6 +105,27 @@ namespace Sample.Controllers
                 return NotFound();
 
             jobRepository.DeleteJobPosition(jobPositionFromRepo);
+            jobRepository.Save();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{jobPositionId}")]
+        public ActionResult UpdatePartiallyJobPosition(Guid companyId,Guid jobPositionId,
+            JsonPatchDocument<JobPositionForUpdateDto> document
+        )
+        {
+            if (!jobRepository.CompanyExists(companyId))
+                return NotFound();
+
+            var jobPositionFromRepo = jobRepository.GetJobPosition(companyId, jobPositionId);
+            if (jobPositionFromRepo == null)
+                return NotFound();
+            var dto = mapper.Map<JobPositionForUpdateDto>(jobPositionFromRepo);
+            document.ApplyTo(dto);
+            mapper.Map(dto,jobPositionFromRepo);
+
+            jobRepository.UpdateJobPosition(jobPositionFromRepo);
             jobRepository.Save();
 
             return NoContent();
