@@ -6,6 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Sample.Entities;
 using Sample.Models;
 using Sample.Services;
@@ -120,15 +123,45 @@ namespace Sample.Controllers
 
             var jobPositionFromRepo = jobRepository.GetJobPosition(companyId, jobPositionId);
             if (jobPositionFromRepo == null)
-                return NotFound();
+            {
+               var jobPositionDto=new JobPositionForUpdateDto();
+               document.ApplyTo(jobPositionDto);
+
+               if (!TryValidateModel(jobPositionDto))
+                   return ValidationProblem(ModelState);
+               var entity = mapper.Map<JobPosition>(jobPositionDto);
+               entity.Id = jobPositionId;
+               jobRepository.AddJobPosition(companyId,entity);
+               jobRepository.Save();
+
+               var dtoToReturn = mapper.Map<JobPositionDto>(entity);
+               return CreatedAtRoute("GetJobPositionForCompany",
+               new {
+                   companyId=companyId,
+                       jobPositionId=dtoToReturn.Id
+               },dtoToReturn);
+
+            }
+
             var dto = mapper.Map<JobPositionForUpdateDto>(jobPositionFromRepo);
-            document.ApplyTo(dto);
+            document.ApplyTo(dto,ModelState);
+
+            if (!TryValidateModel(dto))
+            {
+                return ValidationProblem(ModelState);
+            }
             mapper.Map(dto,jobPositionFromRepo);
 
             jobRepository.UpdateJobPosition(jobPositionFromRepo);
             jobRepository.Save();
 
             return NoContent();
+        }
+
+        public override ActionResult ValidationProblem(ModelStateDictionary modelStateDictionary)
+        {
+            var options = HttpContext.RequestServices.GetRequiredService<IOptions<ApiBehaviorOptions>>();
+            return (ActionResult) options.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
     }
 }
