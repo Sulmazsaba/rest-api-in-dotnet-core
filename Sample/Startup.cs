@@ -34,7 +34,7 @@ namespace Sample
                 .AddNewtonsoftJson(setup =>
             {
                 setup.SerializerSettings.ContractResolver =new CamelCasePropertyNamesContractResolver();
-            });
+            }).AddXmlDataContractSerializerFormatters();
             services.AddDbContext<SampleContext>(options =>
             {
                 options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Sample;Trusted_Connection=True;");
