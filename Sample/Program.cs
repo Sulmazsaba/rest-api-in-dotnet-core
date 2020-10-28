@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Sample.DbContexts;
 
 namespace Sample
 {
@@ -13,7 +16,24 @@ namespace Sample
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+           var host= CreateHostBuilder(args).Build();
+
+           using (var scope=host.Services.CreateScope())
+           {
+               try
+               {
+                   var context = scope.ServiceProvider.GetService<SampleContext>();
+                   //context.Database.EnsureDeleted();
+                   //context.Database.Migrate();
+               }
+               catch (Exception e)
+               {
+                   var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                   logger.LogError(e,"error occurred while database deleted and create in startup");
+               }
+           }
+
+           host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

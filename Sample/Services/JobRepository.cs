@@ -35,17 +35,21 @@ namespace Sample.Services
         {
             if(companiesResourceParameters==null)
                 throw new ArgumentNullException(nameof(CompaniesResourceParameters));
-            if (string.IsNullOrEmpty(companiesResourceParameters.SearchQuery))
-                return GetCompanies();
+        
 
             var collection = context.Companies as IQueryable<Company>;
 
-            var searchQuery = companiesResourceParameters.SearchQuery.Trim();
-            collection = collection.Where(i => i.Name.Contains(searchQuery)
-            || i.Activity.Contains(searchQuery)   );
+            if (!string.IsNullOrEmpty(companiesResourceParameters.SearchQuery))
+            {
+                var searchQuery = companiesResourceParameters.SearchQuery.Trim();
+                collection = collection.Where(i => i.Name.Contains(searchQuery)
+                                                   || i.Activity.Contains(searchQuery));
+            }
 
 
-            return collection.ToList();
+            return collection
+                .Skip(companiesResourceParameters.PageSize * (companiesResourceParameters.PageNumber-1))
+                .Take(companiesResourceParameters.PageSize).ToList();
         }
 
         public void AddCompany(Company company)

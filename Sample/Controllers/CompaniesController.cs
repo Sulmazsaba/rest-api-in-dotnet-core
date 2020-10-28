@@ -27,7 +27,8 @@ namespace Sample.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<CompanyDto>> GetCompanies(CompaniesResourceParameters companiesResourceParameters)
+        public ActionResult<IEnumerable<CompanyDto>> GetCompanies
+            ([FromQuery] CompaniesResourceParameters companiesResourceParameters)
         {
             var companiesFromRepo = jobRepository.GetCompanies(companiesResourceParameters);
             return Ok(mapper.Map<IEnumerable<CompanyDto>>(companiesFromRepo));

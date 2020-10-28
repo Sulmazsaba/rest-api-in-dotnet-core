@@ -40,24 +40,6 @@ namespace Sample.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult<IEnumerable<JobPositionDto>> CreateJobPositions(
-        //    IEnumerable<JobPositionDto> jobPositionDtos)
-        //{
-        //    var entities = mapper.Map<IEnumerable<JobPosition>>(jobPositionDtos);
-
-        //    foreach (var jobPosition in entities)
-        //    {
-        //        jobRepository.AddJobPosition(jobPosition);
-        //    }
-
-        //    jobRepository.Save();
-        //    var jobPositionCollectionToReturn = mapper.Map<IEnumerable<JobPositionDto>>(entities);
-        //    var ids = string.Join(",",jobPositionCollectionToReturn.Select(i=>i.Id));
-
-        //    return CreatedAtRoute("GetCompanyCollection",ids, jobPositionCollectionToReturn);
-
-        //}
 
         [HttpPost]
         public ActionResult<IEnumerable<CompanyDto>> CreateCompanies
