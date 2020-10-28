@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sample.DbContexts;
 using Sample.Entities;
+using Sample.Helpers;
 using Sample.Models;
 using Sample.Profiles;
 using Sample.ResourceParameters;
@@ -31,7 +32,7 @@ namespace Sample.Services
             return context.Companies.FirstOrDefault(i=>i.Id==companyId);
         }
 
-        public IEnumerable<Company> GetCompanies(CompaniesResourceParameters companiesResourceParameters)
+        public PagedList<Company> GetCompanies(CompaniesResourceParameters companiesResourceParameters)
         {
             if(companiesResourceParameters==null)
                 throw new ArgumentNullException(nameof(CompaniesResourceParameters));
@@ -47,9 +48,7 @@ namespace Sample.Services
             }
 
 
-            return collection
-                .Skip(companiesResourceParameters.PageSize * (companiesResourceParameters.PageNumber-1))
-                .Take(companiesResourceParameters.PageSize).ToList();
+            return PagedList<Company>.Create(collection,companiesResourceParameters.PageSize,companiesResourceParameters.PageNumber);
         }
 
         public void AddCompany(Company company)

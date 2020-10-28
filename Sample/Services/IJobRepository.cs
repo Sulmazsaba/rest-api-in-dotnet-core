@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sample.Entities;
+using Sample.Helpers;
 using Sample.Models;
 using Sample.ResourceParameters;
 
@@ -12,7 +13,7 @@ namespace Sample.Services
    {
        IEnumerable<Company> GetCompanies();
        Company GetCompany(Guid companyId);
-       IEnumerable<Company> GetCompanies(CompaniesResourceParameters companiesResourceParameters);
+       PagedList<Company> GetCompanies(CompaniesResourceParameters companiesResourceParameters);
        void AddCompany(Company company);
        bool CompanyExists(Guid companyId);
        IEnumerable<JobPosition> GetJobPositions(Guid companyId);
