@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Sample.Entities;
+using Sample.Helpers;
 using Sample.Models;
 using Sample.ResourceParameters;
 using Sample.Services;
@@ -25,12 +28,29 @@ namespace Sample.Controllers
             this.jobRepository = jobRepository?? throw new ArgumentNullException(nameof(jobRepository));
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetCompanies")]
         [HttpHead]
         public ActionResult<IEnumerable<CompanyDto>> GetCompanies
             ([FromQuery] CompaniesResourceParameters companiesResourceParameters)
         {
             var companiesFromRepo = jobRepository.GetCompanies(companiesResourceParameters);
+
+            var previousLink = companiesFromRepo.HasPrevious
+                ? CreateLink(companiesResourceParameters, ResourceUriLinkType.PreviousPage):null;
+            var nextLink = companiesFromRepo.HasNext ? CreateLink(companiesResourceParameters, 
+                ResourceUriLinkType.NextPage):null;
+
+            var metadataObj = new
+            {
+                pageSize = companiesFromRepo.PageSize,
+                pageNo = companiesFromRepo.CurrentPage,
+                previousLink,
+                nextLink,
+                totalCount = companiesFromRepo.Count,
+                totalPages = companiesFromRepo.TotalPages
+            };
+
+            Response.Headers.Add("x-pagination",JsonSerializer.Serialize(metadataObj));
             return Ok(mapper.Map<IEnumerable<CompanyDto>>(companiesFromRepo));
         }
 
@@ -66,6 +86,29 @@ namespace Sample.Controllers
             return Ok();
         }
 
-
+        private string CreateLink(CompaniesResourceParameters companiesResourceParameters,
+            ResourceUriLinkType resourceUriLinkType)
+        {
+            switch (resourceUriLinkType)
+            {
+                case ResourceUriLinkType.NextPage:
+                    return Url.Link("GetCompanies",
+                        new CompaniesResourceParameters
+                        {
+                            PageSize = companiesResourceParameters.PageSize,
+                            PageNumber = companiesResourceParameters.PageNumber + 1,
+                            SearchQuery = companiesResourceParameters.SearchQuery
+                        });
+                case ResourceUriLinkType.PreviousPage:
+                    return Url.Link("GetCompanies", new CompaniesResourceParameters()
+                    {
+                        PageSize = companiesResourceParameters.PageSize,
+                        PageNumber = companiesResourceParameters.PageNumber - 1,
+                        SearchQuery = companiesResourceParameters.SearchQuery
+                    });
+                default:
+                    return Url.Link("GetCompanies", companiesResourceParameters);
+            }
+        }
     }
 }
