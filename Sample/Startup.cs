@@ -83,6 +83,7 @@ namespace Sample
                     };
                 };
             });
+            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddDbContext<SampleContext>(options =>
             {
                 options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Sample;Trusted_Connection=True;");

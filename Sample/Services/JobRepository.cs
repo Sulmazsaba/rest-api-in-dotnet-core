@@ -47,6 +47,10 @@ namespace Sample.Services
                                                    || i.Activity.Contains(searchQuery));
             }
 
+            if (!string.IsNullOrEmpty(companiesResourceParameters.OrderBy))
+            {
+                collection.ApplySort();
+            }
 
             return PagedList<Company>.Create(collection,companiesResourceParameters.PageSize,companiesResourceParameters.PageNumber);
         }

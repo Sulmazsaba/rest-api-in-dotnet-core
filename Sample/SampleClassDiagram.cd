@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Sample.Controllers.CompaniesCollectionController" Collapsed="true">
+    <Position X="45" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgMAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Controllers\CompaniesCollectionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Controllers.CompaniesController" Collapsed="true">
+    <Position X="46.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAMQAAAAAAAAACAAAAAQAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Controllers\CompaniesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Controllers.JobPositionsController" Collapsed="true">
+    <Position X="48.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAABAAANAAAAAAAAAAAAAAEAAAAAAAAAAIAEAAA=</HashCode>
+      <FileName>Controllers\JobPositionsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.DbContexts.SampleContext" Collapsed="true">
+    <Position X="48.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAEAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbContexts\SampleContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Entities.Company">
+    <Position X="14.5" Y="1.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAABAAAAAAAAQAAAAAAAQAAAAAAEAABAA=</HashCode>
+      <FileName>Entities\Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Entities.JobPosition">
+    <Position X="18.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIgAEAAAAAAAAAQAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Entities\JobPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Helpers.ArrayModelBinder" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="1.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ArrayModelBinder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sample.Helpers.DateTimeOffsetExtensions" Collapsed="true">
+    <Position X="50.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Helpers\DateTimeOffsetExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Helpers.IQueryableExtensions" Collapsed="true">
+    <Position X="46.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\IQueryableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Helpers.MappingDictionary">
+    <Position X="25.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\MappingDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Helpers.PagedList&lt;T&gt;" Collapsed="true">
+    <Position X="46.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAABAAAAAAAAAAAAAAQAEAAAAAAFAAAAAI=</HashCode>
+      <FileName>Helpers\PagedList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Migrations.InitialCreate" Collapsed="true">
+    <Position X="45" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20201023164913_InitialCreate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Migrations.SampleContextModelSnapshot" Collapsed="true">
+    <Position X="50.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Migrations\SampleContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.CompanyDto">
+    <Position X="22" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEAABAA=</HashCode>
+      <FileName>Models\CompanyDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.CompanyForCreationDto">
+    <Position X="30.75" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAQAAAAAAEAABAA=</HashCode>
+      <FileName>Models\CompanyForCreationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.JobPositionDto">
+    <Position X="27.75" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIgAEAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobPositionDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.JobPositionForCreationDto">
+    <Position X="0.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobPositionForCreationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.JobPositionForManipulationDto">
+    <Position X="2.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobPositionForManipulationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Models.JobPositionForUpdateDto">
+    <Position X="3.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobPositionForUpdateDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Profiles.CompaniesProfile" Collapsed="true">
+    <Position X="48.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\CompaniesProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Profiles.JobPositionsProfile" Collapsed="true">
+    <Position X="50.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\JobPositionsProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.ResourceParameters.CompaniesResourceParameters">
+    <Position X="41.5" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QMCAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>ResourceParameters\CompaniesResourceParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sample.Services.JobRepository" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="1.75" Width="6.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIQAIAABQAAAAAAAAACAAAACAAACABAABAAAAAA=</HashCode>
+      <FileName>Services\JobRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sample.Services.PropertyMappingService" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\PropertyMappingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sample.ValidationAttributes.JobPositionTitleMustBeDifferentFromDescriptionAttribute" Collapsed="true">
+    <Position X="45" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ValidationAttributes\JobPositionTitleMustBeDifferentFromDescriptionAttibute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="Sample.Services.IJobRepository" Collapsed="true">
+    <Position X="45" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQAIAABQAAAAAAAAACAAAACAAACABAABAAAAAA=</HashCode>
+      <FileName>Services\IJobRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sample.Services.IPropertyMappingService" Collapsed="true">
+    <Position X="46.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IPropertyMappingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Sample.Entities.Degree" Collapsed="true">
+    <Position X="45" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Degree.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sample.Helpers.ResourceUriLinkType" Collapsed="true">
+    <Position X="46.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAA=</HashCode>
+      <FileName>Helpers\ResourceUriLinkType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
