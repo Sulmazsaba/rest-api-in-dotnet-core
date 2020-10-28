@@ -56,7 +56,7 @@ namespace Sample.Controllers
                 return NotFound();
 
             var entity = mapper.Map<JobPosition>(dto);
-            jobRepository.AddJobPosition(companyId,entity);
+            jobRepository.AddJobPositionForCompany(companyId,entity);
             jobRepository.Save();
 
             var jobPositionDto = mapper.Map<JobPositionDto>(entity);
@@ -77,7 +77,7 @@ namespace Sample.Controllers
             if (jobPositionFromRepo == null)
             {
                 var jobPositionToAdd = mapper.Map<JobPosition>(jobPositionForUpdateDto);
-                jobRepository.AddJobPosition(companyId,jobPositionToAdd);
+                jobRepository.AddJobPositionForCompany(companyId,jobPositionToAdd);
                 jobRepository.Save();
                 var returnDto = mapper.Map<JobPositionDto>(jobPositionToAdd);
                 return CreatedAtRoute("GetJobPositionForCompany",
@@ -131,7 +131,7 @@ namespace Sample.Controllers
                    return ValidationProblem(ModelState);
                var entity = mapper.Map<JobPosition>(jobPositionDto);
                entity.Id = jobPositionId;
-               jobRepository.AddJobPosition(companyId,entity);
+               jobRepository.AddJobPositionForCompany(companyId,entity);
                jobRepository.Save();
 
                var dtoToReturn = mapper.Map<JobPositionDto>(entity);

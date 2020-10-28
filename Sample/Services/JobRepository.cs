@@ -86,7 +86,7 @@ namespace Sample.Services
             return context.JobPositions.FirstOrDefault(i => i.CompanyId == companyId && i.Id == jobPositionId);
         }
 
-        public void AddJobPosition(Guid companyId,JobPosition jobPosition)
+        public void AddJobPositionForCompany(Guid companyId,JobPosition jobPosition)
         {
             if(jobPosition==null)
                 throw new ArgumentNullException(nameof(JobPosition));
@@ -105,6 +105,20 @@ namespace Sample.Services
         public void DeleteJobPosition(JobPosition jobPosition)
         {
             context.JobPositions.Remove(jobPosition);
+        }
+
+
+        public IEnumerable<Company> GetCompanies(IEnumerable<Guid> ids)
+        {
+            if(ids==null)
+                throw new ArgumentNullException(nameof(ids));
+
+            return context.Companies.Where(i => ids.Contains(i.Id)).ToList();
+        }
+
+        public void AddJobPosition(JobPosition jobPosition)
+        {
+            context.JobPositions.Add(jobPosition);
         }
 
         public bool Save()
