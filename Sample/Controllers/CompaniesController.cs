@@ -25,7 +25,7 @@ namespace Sample.Controllers
         public CompaniesController(IMapper mapper, IJobRepository jobRepository)
         {
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            this.jobRepository = jobRepository?? throw new ArgumentNullException(nameof(jobRepository));
+            this.jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
         }
 
         [HttpGet(Name = "GetCompanies")]
@@ -36,9 +36,9 @@ namespace Sample.Controllers
             var companiesFromRepo = jobRepository.GetCompanies(companiesResourceParameters);
 
             var previousLink = companiesFromRepo.HasPrevious
-                ? CreateLink(companiesResourceParameters, ResourceUriLinkType.PreviousPage):null;
-            var nextLink = companiesFromRepo.HasNext ? CreateLink(companiesResourceParameters, 
-                ResourceUriLinkType.NextPage):null;
+                ? CreateLink(companiesResourceParameters, ResourceUriLinkType.PreviousPage) : null;
+            var nextLink = companiesFromRepo.HasNext ? CreateLink(companiesResourceParameters,
+                ResourceUriLinkType.NextPage) : null;
 
             var metadataObj = new
             {
@@ -50,11 +50,11 @@ namespace Sample.Controllers
                 totalPages = companiesFromRepo.TotalPages
             };
 
-            Response.Headers.Add("x-pagination",JsonSerializer.Serialize(metadataObj));
+            Response.Headers.Add("x-pagination", JsonSerializer.Serialize(metadataObj));
             return Ok(mapper.Map<IEnumerable<CompanyDto>>(companiesFromRepo));
         }
 
-        [HttpGet("{companyId}",Name= "GetCompany")]
+        [HttpGet("{companyId}", Name = "GetCompany")]
         public ActionResult<CompanyDto> GetCompany(Guid companyId)
         {
             var companyFromRepo = jobRepository.GetCompany(companyId);
@@ -67,7 +67,7 @@ namespace Sample.Controllers
         [HttpPost]
         public ActionResult<CompanyDto> CreateCompany(CompanyForCreationDto companyForCreationDto)
         {
-            
+
             var entity = mapper.Map<Company>(companyForCreationDto);
             jobRepository.AddCompany(entity);
             jobRepository.Save();
@@ -75,14 +75,14 @@ namespace Sample.Controllers
             var companyToReturn = mapper.Map<CompanyDto>(entity);
 
             return CreatedAtRoute("GetCompany",
-           new  {companyId=companyToReturn.Id},
+           new { companyId = companyToReturn.Id },
             companyToReturn);
         }
 
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {
-            Response.Headers.Add("Allows","Get,Options,Post");
+            Response.Headers.Add("Allows", "Get,Options,Post");
             return Ok();
         }
 

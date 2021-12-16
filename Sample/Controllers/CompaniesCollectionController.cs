@@ -20,11 +20,11 @@ namespace Sample.Controllers
 
         public CompaniesCollectionController(IJobRepository jobRepository, IMapper mapper)
         {
-            this.jobRepository = jobRepository??throw new ArgumentNullException(nameof(jobRepository));
-            this.mapper = mapper??throw new ArgumentNullException(nameof(mapper));
+            this.jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet("{ids}",Name = "GetCompanyCollection")]
+        [HttpGet("{ids}", Name = "GetCompanyCollection")]
         public ActionResult<IEnumerable<CompanyDto>> GetCompanyCollection(
             [FromRoute]
             [ModelBinder(BinderType = typeof(ArrayModelBinder))]
@@ -34,7 +34,7 @@ namespace Sample.Controllers
                 return BadRequest();
 
             var companiesFromRepo = jobRepository.GetCompanies(ids);
-            
+
 
             return Ok(mapper.Map<IEnumerable<CompanyDto>>(companiesFromRepo));
         }
@@ -57,7 +57,7 @@ namespace Sample.Controllers
             var companiesCollectionToReturn = mapper.Map<IEnumerable<CompanyDto>>(entities);
             var companyIds = string.Join(",", entities.Select(i => i.Id));
             return CreatedAtRoute("GetCompanyCollection",
-                new{ids=companyIds},
+                new { ids = companyIds },
                 companiesCollectionToReturn);
 
         }
