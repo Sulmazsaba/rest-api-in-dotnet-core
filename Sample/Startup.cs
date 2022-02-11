@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using GraphQL.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -49,8 +50,8 @@ namespace Sample
                     var problemDetailsFactory = context.HttpContext.RequestServices
                         .GetRequiredService<ProblemDetailsFactory>();
                     var problemDetails = problemDetailsFactory.CreateValidationProblemDetails(
-                            context.HttpContext, 
-                            context.ModelState); 
+                            context.HttpContext,
+                            context.ModelState);
 
                     // add additional info not added by default
                     problemDetails.Detail = "See the errors field for details.";
@@ -95,8 +96,15 @@ namespace Sample
                 //});
             });
             services.AddScoped<IJobRepository, JobRepository>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-           services.AddSwaggerGen();
+
+            services.AddGraphQL().AddSystemTextJson();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Courses.GraphQL", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,6 +119,9 @@ namespace Sample
             }
 
             app.UseHttpsRedirection();
+            //app.UseGraphQL<schemaClass>
+
+            app.UseGraphQLGraphiQL("ui/graphql");
 
             app.UseRouting();
 
