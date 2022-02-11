@@ -18,8 +18,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Sample.DbContexts;
+using Sample.GraphQl;
+using Sample.GraphQl.Queries;
 using Sample.Services;
-using Swashbuckle.Swagger;
 
 namespace Sample
 {
@@ -40,8 +41,7 @@ namespace Sample
             {
                 setup.SerializerSettings.ContractResolver =
                     new CamelCasePropertyNamesContractResolver();
-            })
-                .AddXmlDataContractSerializerFormatters()
+            }).AddXmlDataContractSerializerFormatters()
                    .ConfigureApiBehaviorOptions(setupAction =>
             {
                 setupAction.InvalidModelStateResponseFactory = context =>
@@ -86,6 +86,7 @@ namespace Sample
                     };
                 };
             });
+
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddDbContext<SampleContext>(options =>
             {
@@ -99,11 +100,14 @@ namespace Sample
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddScoped<CompanyQuery>();
+            services.AddScoped<AppSchema>();
+
             services.AddGraphQL().AddSystemTextJson();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Courses.GraphQL", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Sample", Version = "v1" });
             });
         }
 
@@ -119,9 +123,9 @@ namespace Sample
             }
 
             app.UseHttpsRedirection();
-            //app.UseGraphQL<schemaClass>
+            app.UseGraphQL<AppSchema>();
 
-            app.UseGraphQLGraphiQL("ui/graphql");
+            app.UseGraphQLGraphiQL("/ui/graphql");
 
             app.UseRouting();
 
