@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Sample.DbContexts;
 using Sample.GraphQl;
+using Sample.GraphQl.Mutations;
 using Sample.GraphQl.Queries;
 using Sample.Services;
 
@@ -102,6 +103,7 @@ namespace Sample
 
             services.AddScoped<CompanyQuery>();
             services.AddScoped<AppSchema>();
+            services.AddScoped<CompanyMutation>();
 
             services.AddGraphQL().AddSystemTextJson();
 
