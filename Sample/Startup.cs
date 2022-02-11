@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Sample.DbContexts;
 using Sample.Services;
+using Swashbuckle.Swagger;
 
 namespace Sample
 {
@@ -87,9 +89,14 @@ namespace Sample
             services.AddDbContext<SampleContext>(options =>
             {
                 options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Sample;Trusted_Connection=True;");
+                //options.UseSqlite(@"FileName=Sample", options =>
+                //{
+                //    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+                //});
             });
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+           services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +106,8 @@ namespace Sample
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
