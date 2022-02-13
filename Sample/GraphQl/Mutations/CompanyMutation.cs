@@ -39,17 +39,19 @@ namespace Sample.GraphQl.Mutations
                       Name = "CompanyId",
                       Description = "Id of Company"
 
-                  }, new QueryArgument<NonNullGraphType<GuidGraphType>>()
+                  }
+                  , new QueryArgument<NonNullGraphType<GuidGraphType>>()
                   {
                       Name = "JobPositionId",
                       Description = "Id of Job Position"
 
-                  },
-                  new QueryArgument<NonNullGraphType<JobPositionInputType>>()
+                  }
+                  , new QueryArgument<NonNullGraphType<JobPositionInputType>>()
                   {
                       Name = "JobPosition",
                       Description = "Job Position Input Parameter"
-                  }), resolve: context =>
+                  })
+                , resolve: context =>
                   {
                       var jobPosition = context.GetArgument<JobPosition>("JobPosition");
                       jobPosition.CompanyId = context.GetArgument<Guid>("CompanyId");
@@ -60,6 +62,35 @@ namespace Sample.GraphQl.Mutations
                       repository.Save();
                       return jobPosition;
                   });
+
+
+            Field<JobPositionType>("DeleteJobPosition", 
+                "Is used to delete job position of sepecif compapny",
+                new QueryArguments(
+                    new QueryArgument<NonNullGraphType<GuidGraphType>>()
+                    {
+                        Name = "CompanyId",
+                        Description = "Id of Company"
+                    }
+                  , new QueryArgument<NonNullGraphType<GuidGraphType>>()
+                  {
+                      Name = "JobPositionId",
+                      Description = "Id of Job Position"
+
+                  }
+                    ),resolve : context =>
+                    {
+                        var companyId = context.GetArgument<Guid>("CompanyId");
+                        var jobPositionId = context.GetArgument<Guid>("JobPositionId");
+                        var jobPositionFromRepo = repository.GetJobPosition(companyId, jobPositionId);
+
+                        repository.DeleteJobPosition(jobPositionFromRepo);
+                        repository.Save();
+                        return jobPositionFromRepo;
+
+                    }
+                );
+
 
         }
     }
