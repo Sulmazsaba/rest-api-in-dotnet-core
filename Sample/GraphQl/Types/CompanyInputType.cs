@@ -13,6 +13,7 @@ namespace Sample.GraphQl.Types
             Field<StringGraphType>("Activity");
             Field<IntGraphType>("NumberOfStaff");
             Field<DateTimeOffsetGraphType>("DateTime");
+            Field<ListGraphType<JobPositionInputType>>("JobPositions");
         }
     }
 }

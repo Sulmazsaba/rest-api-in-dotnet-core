@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Sample.DbContexts;
 using Sample.Entities;
 using Sample.Helpers;
@@ -22,7 +23,7 @@ namespace Sample.Services
 
         public IEnumerable<Company> GetCompanies()
         {
-            return context.Companies.ToList<Company>();
+            return context.Companies.Include(i=>i.JobPositions).ToList<Company>();
         }
 
         public Company GetCompany(Guid companyId)

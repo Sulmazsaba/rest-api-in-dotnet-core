@@ -12,6 +12,7 @@ namespace Sample.GraphQl.Types
             Field(x => x.NumberOfStaff, type: typeof(IntGraphType)).Description("Number of Staff peoperty from the company object");
             Field(x => x.Activity, type: typeof(StringGraphType)).Description("Activity property from the company object ");
             Field(x => x.DateTime, type: typeof(DateTimeOffsetGraphType)).Description("Date Time Property from the company object");
+            Field(x => x.JobPositions, type: typeof(ListGraphType<JobPositionType>)).Description("Job Positions of Company");
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Sample.GraphQl.Types
             Field(x => x.Title, type: typeof(StringGraphType)).Description("Title of Job Position");
             Field(x => x.Description, type: typeof(StringGraphType)).Description("Description of Job Position");
 
+
+            //Field(x=>x.Company)
         }
     }
 }
