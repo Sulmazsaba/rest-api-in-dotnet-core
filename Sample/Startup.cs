@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols;
 using Newtonsoft.Json.Serialization;
 using Sample.DbContexts;
 using Sample.GraphQl;
@@ -91,7 +93,8 @@ namespace Sample
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddDbContext<SampleContext>(options =>
             {
-                options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Sample;Trusted_Connection=True;");
+                var conn = this.Configuration.GetConnectionString("Default");
+                options.UseSqlServer(conn);
                 //options.UseSqlite(@"FileName=Sample", options =>
                 //{
                 //    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
